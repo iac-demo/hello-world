@@ -63,7 +63,7 @@ task dockerPush(type: DockerPushImage) {
 
 task terraform(type: TerraformTask) {
     description "Runs a terraform script"
-    tfDir       = "${projectDir}/terraform"
+    tfDir       = "${projectDir}/terraform_with_state"
     tfAction    = project.hasProperty("tfAction") ? project.property('tfAction') : "plan -input=false"
     tfInitParams = "-input=false -backend-config=bucket=iacdemo"
 

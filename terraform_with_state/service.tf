@@ -2,6 +2,13 @@ provider "aws" {
   region = "us-west-2"
 }
 
+terraform {
+  backend "s3" {
+    key    = "hello-world.tfstate"
+    region = "us-west-2"
+  }
+}
+
 variable "corebucket" {
   default = "iacdemo"
 }
