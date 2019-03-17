@@ -2,7 +2,7 @@ provider "aws" {
   region = "us-west-2"
 }
 
-variable "corebucket" {
+variable "s3_state_bucket" {
   default = "iacdemo"
 }
 
@@ -18,7 +18,7 @@ data "terraform_remote_state" "core" {
   config {
     key    = "iacdemo.tfstate"
     region = "us-west-2"
-    bucket = "${var.corebucket}"
+    bucket = "${var.s3_state_bucket}"
   }
 }
 

@@ -4,6 +4,7 @@ To deploy hello-world microservice you need to provision `core-infrastructure` p
 See https://github.com/iac-demo/core-infrastructure on how to do it.
 
 Also you need to have AWS credentials for your account.
+See https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html on how to set them up.
 
 **Warning**: deploying this project will create AWS resources - you will be charged for their usage.
 
