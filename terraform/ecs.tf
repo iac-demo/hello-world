@@ -1,6 +1,5 @@
-resource "aws_ecs_cluster" "main" {
-  name = "main-ecs-cluster"
-}
+variable "aws_account_id" {}
+variable "aws_region" {}
 
 resource "aws_ecs_task_definition" "hello-world" {
   family                   = "hello-world"
@@ -15,7 +14,7 @@ resource "aws_ecs_task_definition" "hello-world" {
   {
     "cpu": 256,
     "memory": 512,
-    "image": "197718026611.dkr.ecr.us-west-2.amazonaws.com/helloworld:latest",
+    "image": "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/helloworld:latest",
     "name": "helloworld",
     "networkMode": "awsvpc",
     "portMappings": [
@@ -31,7 +30,7 @@ DEFINITION
 
 resource "aws_ecs_service" "hello-world" {
   name            = "hello-world"
-  cluster         = "${aws_ecs_cluster.main.id}"
+  cluster         = "${data.terraform_remote_state.core.ecs_cluster_id}"
   task_definition = "${aws_ecs_task_definition.hello-world.arn}"
   desired_count   = "2"
   launch_type     = "FARGATE"
