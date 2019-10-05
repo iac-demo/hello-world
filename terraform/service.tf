@@ -15,10 +15,10 @@ terraform {
 
 data "terraform_remote_state" "core" {
   backend = "s3"
-  config {
+  config = {
     key    = "iacdemo.tfstate"
     region = "us-west-2"
-    bucket = "${var.s3_state_bucket}"
+    bucket = var.s3_state_bucket
   }
 }
 
