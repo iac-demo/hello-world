@@ -39,7 +39,7 @@ dependencies {
 
 docker {
     registryCredentials {
-        url = "https://${System.getenv().get('TF_VAR_aws_account_id')}.dkr.ecr.${System.getenv().get('TF_VAR_aws_region', 'us-west-2')}.amazonaws.com"
+        url = "https://${System.getenv().get('TF_VAR_aws_account_id')}.dkr.ecr.${System.getenv().get('TF_VAR_aws_region') ?: 'us-west-2'}.amazonaws.com"
     }
 }
 
@@ -54,14 +54,14 @@ task dockerBuild(type: DockerBuildImage) {
     }
     inputDir = file('./')
 
-    tags.add("${System.getenv().get('TF_VAR_aws_account_id')}.dkr.ecr.${System.getenv().get('TF_VAR_aws_region', 'us-west-2')}.amazonaws.com/helloworld:latest")
+    tags.add("${System.getenv().get('TF_VAR_aws_account_id')}.dkr.ecr.${System.getenv().get('TF_VAR_aws_region') ?: 'us-west-2'}.amazonaws.com/helloworld:latest")
 }
 
 task dockerPush(type: DockerPushImage) {
     doFirst{
         checkEnvVars()
     }
-    imageName = "${System.getenv().get('TF_VAR_aws_account_id')}.dkr.ecr.${System.getenv().get('TF_VAR_aws_region', 'us-west-2')}.amazonaws.com/helloworld:latest"
+    imageName = "${System.getenv().get('TF_VAR_aws_account_id')}.dkr.ecr.${System.getenv().get('TF_VAR_aws_region') ?: 'us-west-2'}.amazonaws.com/helloworld:latest"
 }
 
 
